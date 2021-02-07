@@ -23,17 +23,8 @@ jobs:
         with:
           node-version: "${{ env.NODE }}"
 
-      - name: Set up npm cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-v${{ env.NODE }}-${{ hashFiles('package.json') }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-v${{ env.NODE }}-${{ hashFiles('package.json') }}-${{ hashFiles('package-lock.json') }}
-            ${{ runner.os }}-node-v${{ env.NODE }}-
-
-      - name: Install npm dependencies
-        run: npm ci
+      - name: Install packages
+        uses: bahmutov/npm-install@v1
 
       - name: Build CSS
         run: npm run css
